@@ -16,6 +16,8 @@ mathMode()
 Send "{Left}"
 Send "{Left}"
 Send "{Left}"       ; three times left to get cursor in the default position
+Send "{Down}" 
+Send "{Down}" 
 }
 
 !´::
@@ -57,6 +59,7 @@ Send "{Left}"
 !p::Send "π"
 !o::Send "Ω"
 !e::Send ""
+!l::Send "λ"
 !u::Send "μ"
 ^e::Send "ε"
 
@@ -64,7 +67,7 @@ Send "{Left}"
 !,::
 {
 MouseGetPos &xpos, &ypos 
-Send "{Click 907 123}" ; click at subscript button
+Send "{Click 604 82}" ; click at subscript button
 MouseMove xpos, ypos
 }
 
