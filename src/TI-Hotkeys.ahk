@@ -67,7 +67,7 @@ InitConfigFile()
 
   if (FileExist(A_AppData "\TI-Hotkeys\config.ini") == "")
   {
-    MsgBox(("Installation successful! `nPress alt + h to open the hotkey editor")
+    MsgBox("Installation successful! `nPress alt + h to open the hotkey editor")
     FileAppend("[Hotkeys]", A_AppData "\TI-Hotkeys/config.ini", "UTF-16-RAW")
   }
 
