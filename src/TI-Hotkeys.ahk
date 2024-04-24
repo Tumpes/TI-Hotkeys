@@ -1,5 +1,15 @@
-﻿; Hotkey for TI-Nspire cas software
+; Hotkey for TI-Nspire cas software
 ; github.com/tumpes/TI-Hotkeys
+
+;todo
+
+; config file using relative path
+; check for config file and create as utf16-raw if missing
+; first time instruction popup
+; implement lock to calculator software
+; automatic persistance
+; installer
+; maybe stop using try block for existing hotkeys
 
 SendIntegral() {
   mathMode()
@@ -7,7 +17,7 @@ SendIntegral() {
   mathMode()
   Send "{Left}"
   Send "{Left}"
-  Send "{Left}"
+  Send "{Left}"       ; three times left to get cursor in the default position
   Send "{Down}"
   Send "{Down}"
 }
@@ -16,7 +26,7 @@ Senddx() {
   mathMode()
   Send "(,)"       ; derive and fill in x
   mathMode()
-  Send "{Left}"
+  Send "{Left}"     ; go left to get cursor in the default place
   Send "{Left}"
   Send "x"
   Send "{Right}"
@@ -26,7 +36,7 @@ SendDerivative() {
   mathMode()
   Send "(,)"
   mathMode()
-  Send "{Left}"
+  Send "{Left}"     ; go left to get cursor in the default place
   Send "{Left}"
 }
 
@@ -121,7 +131,7 @@ HotIfWinNotActive
     WinSetStyle("-0x20000", myGui) ; hide minimize and fullscreen buttons
     keyBind := myGui.Add("Hotkey", "x160 y16 w120 h21 vChosenHotkey")
     ; lockCalc := myGui.Add("CheckBox", "x304 y8 w160 h34", "Toimii laskimen ulkopuolella")
-    hotkeyButton := myGui.Add("DropDownList", "x24 y16 w120 Choose1", [" ", "≈", "≠", "↑", "↓", "α", "β", "γ", "Σ", "≤", "≥", "±", "π", "Ω", "", "λ", "μ", "ε", "φ", "⇔", "⇒", "¬", "∧", "∨", "▶", "≡", "integral", "derivative", "autofilled derivative"])
+    hotkeyButton := myGui.Add("DropDownList", "x24 y16 w120 Choose1", [" ", "≈", "≠", "↑", "↓", "α", "β", "γ", "Σ", "≤", "≥", "±", "π", "Ω", "neper number", "λ", "μ", "ε", "φ", "⇔", "⇒", "¬", "∧", "∨", "▶", "≡", "integral", "derivative", "autofilled derivative"])
     saveBtn := myGui.Add("Button", "x190 y60 w40", "Save")
     keyBind.OnEvent("Change", HandleChange)
     ; lockCalc.OnEvent("Click", HandleChange)
