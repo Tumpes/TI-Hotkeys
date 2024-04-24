@@ -10,4 +10,5 @@ Open Powershell and paste in the following code
 You're done! The script also starts when you start your computer
 
 **Usage**
+
 Alt + h to open the hotkey editor
