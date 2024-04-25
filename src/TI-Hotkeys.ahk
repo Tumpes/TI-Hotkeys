@@ -77,6 +77,63 @@ InitConfigFile()
   }
 }
 
+GuiConstructor()
+{
+  myGui := Gui()
+  WinSetStyle("-0x20000", myGui) ; hide minimize and fullscreen buttons
+  keyBind := myGui.Add("Hotkey", "x160 y16 w120 h21 vChosenHotkey")
+  ; lockCalc := myGui.Add("CheckBox", "x304 y8 w160 h34", "Toimii laskimen ulkopuolella")
+  hotkeyButton := myGui.Add("DropDownList", "x24 y16 w120 Choose1", [" ", "≈", "≠", "↑", "↓", "α", "β", "γ", "Σ", "≤", "≥", "±", "π", "Ω", "neper number", "λ", "μ", "ε", "φ", "⇔", "⇒", "¬", "∧", "∨", "▶", "≡", "integral", "derivative", "autofilled derivative"])
+  saveBtn := myGui.Add("Button", "x190 y60 w40", "Save")
+  keyBind.OnEvent("Change", HandleChange)
+  ; lockCalc.OnEvent("Click", HandleChange)
+  ; hotkeyButton.OnEvent("Change", HandleChange)
+  saveBtn.OnEvent("Click", HandleSave)
+  myGui.OnEvent('Close', (*) => myGui.Destroy())
+  myGui.Title := "Hotkey Editor"
+
+  HandleSave(*)
+  {
+
+    KeyBindText := keyBind.Value
+    action := hotkeyButton.Text
+
+    if (action == " ")
+    {
+      HotIfWinNotActive "ahk_class AutoHotkeyGUI"
+      Hotkey(KeyBindText, "Off")
+      HotIfWinNotActive
+
+      IniDelete(configFile, "Hotkeys", KeyBindText)
+
+      return 0
+    }
+
+    replaceHotkey(KeyBindText, action)
+
+    HotIfWinNotActive "ahk_class AutoHotkeyGUI"
+
+    NewHotkey(KeyBindText, action)
+
+    HotIfWinNotActive
+
+  }
+
+  HandleChange(*) {
+    KeyBindText := keyBind.Value
+
+    try {
+      existing := IniRead(configFile, "Hotkeys", KeyBindText)
+      hotkeyButton.Text := existing
+    }
+    ; catch{
+    ;   hotkeyButton.Text := " "
+    ; }
+  }
+
+  return myGui
+}
+
 ; Load hotkeys from file
 
 InitConfigFile()
@@ -97,7 +154,7 @@ for item in arr
 
 HotIfWinNotActive
 
-!h::
+!h:: ; Hotkey editor
 {
 
   ;AutoGUI creator: Alguimist autohotkey.com/boards/viewtopic.php?f=64&t=89901
@@ -106,65 +163,8 @@ HotIfWinNotActive
 
   if !WinExist("ahk_class AutoHotkeyGUI")
   {
-    myGui := Constructor()
-    myGui.Show("w550 h120") ; 550
-  }
-
-  Constructor()
-  {
-    myGui := Gui()
-    WinSetStyle("-0x20000", myGui) ; hide minimize and fullscreen buttons
-    keyBind := myGui.Add("Hotkey", "x160 y16 w120 h21 vChosenHotkey")
-    ; lockCalc := myGui.Add("CheckBox", "x304 y8 w160 h34", "Toimii laskimen ulkopuolella")
-    hotkeyButton := myGui.Add("DropDownList", "x24 y16 w120 Choose1", [" ", "≈", "≠", "↑", "↓", "α", "β", "γ", "Σ", "≤", "≥", "±", "π", "Ω", "neper number", "λ", "μ", "ε", "φ", "⇔", "⇒", "¬", "∧", "∨", "▶", "≡", "integral", "derivative", "autofilled derivative"])
-    saveBtn := myGui.Add("Button", "x190 y60 w40", "Save")
-    keyBind.OnEvent("Change", HandleChange)
-    ; lockCalc.OnEvent("Click", HandleChange)
-    ; hotkeyButton.OnEvent("Change", HandleChange)
-    saveBtn.OnEvent("Click", HandleSave)
-    myGui.OnEvent('Close', (*) => myGui.Destroy())
-    myGui.Title := "Hotkey Editor"
-
-    HandleSave(*)
-    {
-
-      KeyBindText := keyBind.Value
-      action := hotkeyButton.Text
-
-      if (action == " ")
-      {
-        HotIfWinNotActive "ahk_class AutoHotkeyGUI"
-        Hotkey(KeyBindText, "Off")
-        HotIfWinNotActive
-
-        IniDelete(configFile, "Hotkeys", KeyBindText)
-
-        return 0
-      }
-
-      replaceHotkey(KeyBindText, action)
-
-      HotIfWinNotActive "ahk_class AutoHotkeyGUI"
-
-      NewHotkey(KeyBindText, action)
-
-      HotIfWinNotActive
-
-    }
-
-    HandleChange(*) {
-      KeyBindText := keyBind.Value
-
-      try {
-        existing := IniRead(configFile, "Hotkeys", KeyBindText)
-        hotkeyButton.Text := existing
-      }
-      ; catch{
-      ;   hotkeyButton.Text := " "
-      ; }
-    }
-
-    return myGui
+    myGui := GuiConstructor()
+    myGui.Show("w550 h120")
   }
 }
 
