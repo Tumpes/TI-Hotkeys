@@ -1,15 +1,5 @@
-; Hotkey for TI-Nspire cas software
+﻿; Hotkey for TI-Nspire cas software
 ; github.com/tumpes/TI-Hotkeys
-
-;todo
-
-; config file using relative path
-; check for config file and create as utf16-raw if missing
-; first time instruction popup
-; implement lock to calculator software
-; automatic persistance
-; installer
-; maybe stop using try block for existing hotkeys
 
 SendIntegral() {
   mathMode()
@@ -119,7 +109,7 @@ HotIfWinNotActive
   ;AHKv2converter creator: github.com/mmikeww/AHK-v2-script-converter
   ;EasyAutoGUI-AHKv2 github.com/samfisherirl/Easy-Auto-GUI-for-AHK-v2
 
-  if A_LineFile = A_ScriptFullPath && !A_IsCompiled
+  if !WinExist("ahk_class AutoHotkeyGUI")
   {
     myGui := Constructor()
     myGui.Show("w550 h120") ; 550
