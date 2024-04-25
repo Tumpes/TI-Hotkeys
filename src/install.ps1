@@ -8,8 +8,8 @@ $wc.DownloadFile("https://raw.githubusercontent.com/Tumpes/TI-Hotkeys/master/src
 
 $WshShell = New-Object -comObject WScript.Shell
 $Shortcut = $WshShell.CreateShortcut("$env:APPDATA\Microsoft\Windows\Start Menu\Programs\Startup\TI-Hotkeys.lnk")
-$Shortcut.TargetPath = "$env:APPDATA\TI-Hotkeys\TI-Hotkeys.ahk"
-$Shortcut.Arguments = "TI-Hotkeys.ahk"
+$Shortcut.TargetPath = "$env:APPDATA\TI-Hotkeys\AutoHotkey64.exe"
+$Shortcut.Arguments = "$env:APPDATA\TI-Hotkeys\TI-Hotkeys.ahk"
 $Shortcut.Save()
 
 Invoke-Expression "& `"$env:APPDATA\TI-Hotkeys\AutoHotkey64.exe`" $env:APPDATA\TI-Hotkeys\TI-Hotkeys.ahk"
