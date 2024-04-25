@@ -60,11 +60,6 @@ NewHotkey(keyBind, action)
 
 InitConfigFile()
 {
-  if (FileExist(A_AppData "\TI-Hotkeys\") == "")
-  {
-    DirCreate(A_AppData "\TI-Hotkeys\")
-  }
-
   if (FileExist(A_AppData "\TI-Hotkeys\config.ini") == "")
   {
     MsgBox("Installation successful! `nPress alt + h to open the hotkey editor")
