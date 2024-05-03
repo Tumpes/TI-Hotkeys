@@ -12,4 +12,9 @@ $Shortcut.TargetPath = "$env:APPDATA\TI-Hotkeys\AutoHotkey64.exe"
 $Shortcut.Arguments = "$env:APPDATA\TI-Hotkeys\TI-Hotkeys.ahk"
 $Shortcut.Save()
 
+$Shortcut2 = $WshShell.CreateShortcut("$env:APPDATA\Microsoft\Windows\Start Menu\Programs\TI-Hotkeys.lnk")
+$Shortcut2.TargetPath = "$env:APPDATA\TI-Hotkeys\AutoHotkey64.exe"
+$Shortcut2.Arguments = "$env:APPDATA\TI-Hotkeys\TI-Hotkeys.ahk"
+$Shortcut2.Save()
+
 Invoke-Expression "& `"$env:APPDATA\TI-Hotkeys\AutoHotkey64.exe`" $env:APPDATA\TI-Hotkeys\TI-Hotkeys.ahk"
