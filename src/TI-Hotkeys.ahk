@@ -79,6 +79,11 @@ InitConfigFile()
 
 GuiConstructor()
 {
+
+  ;AutoGUI creator: Alguimist autohotkey.com/boards/viewtopic.php?f=64&t=89901
+  ;AHKv2converter creator: github.com/mmikeww/AHK-v2-script-converter
+  ;EasyAutoGUI-AHKv2 github.com/samfisherirl/Easy-Auto-GUI-for-AHK-v2
+
   myGui := Gui()
   WinSetStyle("-0x20000", myGui) ; hide minimize and fullscreen buttons
   keyBind := myGui.Add("Hotkey", "x160 y16 w120 h21 vChosenHotkey")
@@ -134,6 +139,14 @@ GuiConstructor()
   return myGui
 }
 
+StartGui(*) {
+  if !WinExist("ahk_class AutoHotkeyGUI")
+    {
+      myGui := GuiConstructor()
+      myGui.Show("w550 h120")
+    }
+}
+
 ; Load hotkeys from file
 
 InitConfigFile()
@@ -154,18 +167,30 @@ for item in arr
 
 HotIfWinNotActive
 
+
+Tray := A_TrayMenu ; set up tray
+
+Tray.Delete()
+
+Tray.Add("Open Hotkey Editor", StartGui)
+
+Tray.AddStandard()
+
+Tray.Delete("&Open")
+Tray.Delete("&Help")        ; Should rewrite this later, works for now
+Tray.Delete("&Window Spy")
+Tray.Delete("&Reload Script")
+Tray.Delete("&Edit Script")
+Tray.Delete("&Pause Script")
+
+Tray.Delete("2&") ; delete separators
+Tray.Delete("2&")
+
+
 !h:: ; Hotkey editor
 {
 
-  ;AutoGUI creator: Alguimist autohotkey.com/boards/viewtopic.php?f=64&t=89901
-  ;AHKv2converter creator: github.com/mmikeww/AHK-v2-script-converter
-  ;EasyAutoGUI-AHKv2 github.com/samfisherirl/Easy-Auto-GUI-for-AHK-v2
-
-  if !WinExist("ahk_class AutoHotkeyGUI")
-  {
-    myGui := GuiConstructor()
-    myGui.Show("w550 h120")
-  }
+  StartGui()
 }
 
 
