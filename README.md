@@ -11,4 +11,4 @@ You're done! The script also starts when you start your computer
 
 **Usage**
 
-Alt + h to open the hotkey editor
+Alt + h or tray menu to open the hotkey editor
