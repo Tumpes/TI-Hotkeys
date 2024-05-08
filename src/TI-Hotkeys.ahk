@@ -30,6 +30,10 @@ SendDerivative() {
   Send "{Left}"
 }
 
+SendNeper() {
+  Send ""
+}
+
 replaceHotkey(key, val) {
   IniWrite(val, configFile, "Hotkeys", key)
 }
@@ -53,6 +57,9 @@ NewHotkey(keyBind, action)
   else if (action == "autofilled derivative") {
     Hotkey keyBind, (_) => Senddx()
   }
+  else if (action == "neper number") {
+    Hotkey keyBind, (_) => Sendneper()
+  }
   else {
     Hotkey(keyBind, (_) => Send(action)) ;
   }
@@ -62,7 +69,7 @@ InitConfigFile()
 {
   if (FileExist(A_AppData "\TI-Hotkeys\config.ini") == "")
   {
-    MsgBox("Installation successful! `nPress alt + h to open the hotkey editor")
+    MsgBox("Installation successful! `nPress alt + h or use the tray menu to open the hotkey editor")
     FileAppend("[Hotkeys]", A_AppData "\TI-Hotkeys/config.ini", "UTF-16-RAW")
   }
 
