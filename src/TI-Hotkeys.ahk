@@ -1,6 +1,8 @@
 ﻿; Hotkey for TI-Nspire cas software
 ; github.com/tumpes/TI-Hotkeys
 
+#SingleInstance Force
+
 SendIntegral() {
   mathMode()
   Send "∫(,,,)"       ; definite Integral
