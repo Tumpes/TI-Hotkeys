@@ -112,6 +112,11 @@ GuiConstructor()
     KeyBindText := keyBind.Value
     action := hotkeyButton.Text
 
+    if(KeyBindText == ""){
+      MsgBox("Please fill both fields")
+      return 0
+    }
+
     if (action == " ")
     {
       HotIfWinNotActive "ahk_class AutoHotkeyGUI"
